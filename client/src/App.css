@@ -1,0 +1,615 @@
+:root {
+    --blue: #1DA1F2;
+    --darkBlue: #0b92e6;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.App {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/* Header */
+.header {
+    display: flex;
+    width: 43%;
+    align-items: center;
+}
+
+/* Home */
+.homeContainer {
+    width: 37%;
+    background-color: rgba(221, 237, 252, 0.68);
+    padding: 30px 0;
+    text-align: center;
+    border-radius: 15px;
+    margin: 100px auto;
+}
+
+.homeContainer-logo {
+    font-size: 1.5rem;
+    color: var(--blue);
+}
+
+.homeContainer-logo svg {
+    margin: auto;
+}
+
+.homeContainer-header h2 {
+    font-weight: bold !important;
+    text-align: center !important;
+    margin-bottom: 60px;
+    font-size: 1.9rem !important;
+}
+
+.googleSignIn {
+    text-decoration: none;
+    padding: 10px 30px;
+    background-color: white;
+    border-radius: 30px;
+    color: black;
+    display: flex;
+    width: 55%;
+    gap: 10px !important;
+    font-weight: bold;
+    text-align: center !important;
+    justify-content: center !important;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.googleSignIn:hover {
+    background-color: rgb(250, 247, 247);
+}
+
+.homeContainer-hr {
+    display: flex;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.homeContainer-hr span {
+    text-align: center;
+    height: fit-content;
+
+}
+
+hr {
+    color: rgba(157, 157, 157, 0.254);
+    width: 35%;
+    border: solid .5px;
+    margin: 10px auto !important;
+}
+
+.homeContainer-form {
+    margin: 0 auto;
+}
+
+.homeContainer-input {
+    width: 55%;
+    height: 45px;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.525);
+}
+
+.homeContainer-input:focus {
+    border: 3px solid var(--blue);
+}
+
+.homeContainer-btn {
+    width: fit-content;
+    padding: 4px 25px;
+}
+
+.homeContainer-signup {
+    margin: 40px 0 0;
+}
+
+.homeContainer-signup a {
+    text-decoration: none;
+    color: var(--blue);
+}
+
+
+/* Feed */
+.HeaderAndFeed {
+    width: 80%;
+    border-left: 1.2px solid rgb(217, 217, 217);
+    margin-left: auto;
+    padding: 20px;
+}
+
+form {
+    width: 100%;
+    margin-bottom: 90px;
+}
+
+input {
+    width: 100%;
+    height: 70px;
+    margin-bottom: 10px !important;
+    font-size: larger !important;
+    padding: 10px !important;
+    border-radius: 5px;
+    border: 0;
+}
+
+input:focus {
+    outline: none;
+}
+
+
+.tweet-form {
+    border-bottom: 1px solid rgb(217, 217, 217);
+}
+
+.tweet-flex {
+    display: flex;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgb(217, 217, 217);
+    border-bottom: 1px solid rgb(217, 217, 217);
+}
+
+.tweet-flex button {
+    margin-left: auto;
+}
+
+.tweet-preview {
+    /* margin-left: 20px; */
+    margin: 30px auto;
+    width: 75%;
+    border-radius: 16px;
+}
+
+
+.tweetImage {
+    width: 70%;
+    margin: 60px auto;
+    border-radius: 16px;
+}
+
+
+.homeContainer-btn, .tweetBtn, .followBtn {
+    font-size: 1.2rem !important;
+    border-radius: 30px;
+    padding: 5px 20px;
+    cursor: pointer;
+    background-color: var(--blue) !important;
+    border: 0;
+    color: white !important;
+    font-weight: bold;
+}
+
+.disabled {
+    font-size: 1.2rem !important;
+    border-radius: 30px;
+    padding: 5px 20px;
+    cursor: pointer;
+    background-color: var(--blue) !important;
+    opacity: 0.5;
+    cursor: default;
+    border: 0;
+    color: white !important;
+    font-weight: bold;
+}
+
+.tweetBtn:hover {
+    background-color: var(--darkBlue) !important;
+}
+
+.homeContainer-btn:hover {
+    background-color: var(--darkBlue) !important;
+}
+
+.flex-introduction {
+    display: flex;
+    gap: 10px;
+    width: fit-content;
+    font-weight: bold;
+    font-size: 1.1rem !important;
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.738);
+}
+
+.flex-introduction:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.738);
+}
+
+.parent-flex-introduction {
+    display: flex;
+    align-items: center;
+}
+
+.parent-flex-introduction button {
+    margin-left: auto;
+    height: fit-content;
+}
+
+.delete-popup button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.delete-popup button:hover {
+    background-color: rgb(239, 239, 239);
+}
+
+.delete-btn {
+    display: flex;
+}
+
+.delete-btn svg {
+    margin: auto;
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+.threeDots {
+    padding: 10px;
+    border-radius: 30px;
+    margin-top: -20px;
+    transition: all ease 0.2s;
+}
+
+.threeDots:hover {
+    background-color: rgba(0, 183, 255, 0.083);
+}
+
+.tweets {
+    margin-bottom: 100px;
+    width: 100%;
+}
+
+.retweetedBy {
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgb(217, 217, 217);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.tweet-list {
+    list-style: none;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.tweet-items {
+    background-color: rgba(240, 248, 255, 0.458);
+    box-shadow: 0px 10px 25px rgba(191, 191, 191, 0.625);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    font-size: larger;
+    border-radius: 10px;
+}
+
+.comment-items {
+    background-color: rgba(240, 248, 255, 0.458);
+    box-shadow: 0px 10px 25px rgba(191, 191, 191, 0.625);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    margin-left: auto;
+    font-size: larger;
+    border-radius: 10px;
+}
+
+.content {
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+}
+
+.icons, .count {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.icon {
+    cursor: pointer;
+    padding: 5px;
+    transition: color .3s;
+    color: black;
+}
+
+.icons button {
+    font-size: 85%;
+}
+
+.like-count, .retweet-count, .comment-count {
+    text-align: center;
+}
+
+.post {
+    border-bottom: 1px solid rgb(217, 217, 217);
+    padding-bottom: 70px;
+    margin-bottom: 70px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    margin-left: 0;
+    padding: 10px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    font-size: 1.5rem;
+}
+
+.sidebar-menu a {
+    text-decoration: none;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 35px;
+    transition: all ease 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-menu a:hover {
+    background-color: rgb(229, 230, 231);
+}
+
+.sidebar-menu-items {
+    padding: 3px 0;
+}
+
+.title a {
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--blue);
+    width: fit-content;
+    padding: 13px 13px;
+    border-radius: 30px;
+}
+
+.title a:hover {
+    background-color: rgba(0, 183, 255, 0.083);
+}
+
+.tweet-list-item {
+    margin-top: 15px;
+}
+
+.sidebar-menu-tweetBtn {
+    font-size: 1.1rem !important;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.tweetBtn-link {
+    padding: 0 !important;
+}
+
+
+/* Profile */
+.userName {
+    font-size: 1.8rem;
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+
+.flex-avatar {
+    display: flex;
+    gap: 70px;
+    justify-content: space-evenly;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+    border-bottom: 1px solid rgb(217, 217, 217);
+}
+
+.avatar-form {
+    width: 80%;
+    margin-bottom: 0;
+    margin-left: auto;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.avatar-input {
+    display: none;
+    margin-top: 20px;
+}
+
+.avatar-label {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 10px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.avatar-label svg {
+    font-size: 1.8rem;
+    margin: auto;
+}
+
+.avatarBtn {
+    height: fit-content;
+    margin-left: 20px;
+}
+
+.avatar-preview {
+    margin-left: 20px;
+    width: 100px;
+    cursor: pointer;
+}
+
+.avatar-preview:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.popup-avatar {
+    text-align: center;
+}
+
+.popup-avatar h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.followFollowing {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+    color: rgba(0, 0, 0, 0.72);
+    border-bottom: 1px solid rgb(217, 217, 217);
+    margin-bottom: 20px;
+}
+
+.userTweets-heading {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.followBtn {
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 20px;
+}
+
+.follow-form {
+    margin-bottom: 30px;
+}
+
+.followBtn-div {
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgb(181, 180, 180);
+}
+
+/* Popup */
+
+.popup-content {
+    padding: 15px !important;
+    border-radius: 10px;
+}
+
+.popup-arrow {
+    display: none;
+}
+
+@keyframes anvil {
+    0% {
+        transform: scale(1) translateY(0px);
+        opacity: 0;
+        box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+    }
+
+    1% {
+        transform: scale(0.96) translateY(10px);
+        opacity: 0;
+        box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+    }
+
+    100% {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+        box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+    }
+}
+
+.popup-content {
+    -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+}
+
+/* Footer */
+.footer {
+    padding: 40px 0 40px 13%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: var(--blue);
+    color: white;
+}
+
+
+/* preloader */
+
+
+@keyframes ldio-gkgg43sozzi {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.ldio-gkgg43sozzi div {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border: 5px solid #1da1f2;
+    border-top-color: transparent;
+    border-radius: 50%;
+}
+
+.ldio-gkgg43sozzi div {
+    animation: ldio-gkgg43sozzi 1s linear infinite;
+    top: 100px;
+    left: 100px
+}
+
+.loadingio-spinner-rolling-uzhdebhewyj {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    display: inline-block;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.ldio-gkgg43sozzi {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+}
+
+.ldio-gkgg43sozzi div {
+    box-sizing: content-box;
+}
+
+
+/* avatar */
+
+.profile-avatar {
+    height: 100px;
+    width: 100px;
+    margin-right: auto;
+    object-fit: cover;
+    object-position: 25% 25%;
+    border-radius: 50%;
+    box-shadow: 0px 10px 25px rgba(191, 191, 191, 0.625);
+}
+
+.tweet-avatar {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    object-position: 25% 25%;
+    border-radius: 50%;
+    box-shadow: 0px 10px 25px rgba(191, 191, 191, 0.625);
+    margin: 0 15px 15px 0;
+}

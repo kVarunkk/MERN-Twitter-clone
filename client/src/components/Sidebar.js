@@ -1,0 +1,135 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { BsTwitter } from "react-icons/bs";
+import { BiHome } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
+import { useToast } from "@chakra-ui/toast";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import moment from "moment";
+
+function Sidebar() {
+  const [activeUser, setActiveUser] = useState("");
+  const [input, setInput] = useState("");
+  const toast = useToast();
+
+  const successToast = () => {
+    toast({
+      title: `Tweet sent`,
+      position: "top",
+      isClosable: true,
+    });
+  };
+
+  async function populateUser() {
+    const req = await fetch("http://localhost:5000/feed", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      },
+    });
+
+    const data = await req.json();
+    if (data.status === "ok") {
+      setActiveUser(data.activeUser.username);
+    } else {
+      alert(data.error);
+    }
+  }
+
+  populateUser();
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const tweet = {
+      content: input,
+      postedBy: {
+        username: activeUser,
+      },
+      likes: [],
+      retweets: [],
+      comments: [],
+      likeTweetBtn: "black",
+      postedTweetTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      tweetId: moment(),
+    };
+
+    fetch("http://localhost:5000/feed", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(tweet),
+    })
+      .then(setInput(""))
+      .then(successToast())
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <div className="sidebar">
+      <ul className="sidebar-menu">
+        <li className="sidebar-menu-items">
+          <div className="title">
+            <Link to="/feed">
+              <BsTwitter />
+            </Link>
+          </div>
+        </li>
+        <li className="sidebar-menu-items">
+          <Link to="/">
+            <BiHome />
+            <div>Home</div>
+          </Link>
+        </li>
+        <li className="sidebar-menu-items">
+          <Link to={`/profile/${activeUser}`}>
+            <CgProfile />
+            <div>Profile</div>
+          </Link>
+        </li>
+        <li className="sidebar-menu-items tweet-list-item">
+          <Popup
+            trigger={
+              <button className="tweetBtn sidebar-menu-tweetBtn">Tweet</button>
+            }
+            modal
+            position="center"
+          >
+            {(close) => (
+              <form
+                onSubmit={(e) => {
+                  handleSubmit(e);
+                  close();
+                }}
+                method="post"
+                action="http://localhost:5000/feed"
+                style={{ marginBottom: "0" }}
+              >
+                <input
+                  required
+                  autoFocus
+                  placeholder="What's happening?"
+                  type="text"
+                  value={input}
+                  onChange={handleChange}
+                ></input>
+                <br></br>
+                <button className="tweetBtn" type="submit">
+                  {" "}
+                  Tweet
+                </button>
+              </form>
+            )}
+          </Popup>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+export default Sidebar;
