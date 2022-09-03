@@ -8,16 +8,16 @@ Twitter clone made using MERN Stack.
 - Customize account
 - Tweet
 - Comment
-- Like tweets and comments
 - Retweet
+- Follow user
+- Like tweets and comments
 - Edit tweets and comments
 - Delete tweets and comments
-- Follow
 
 ## Bugs
 
 - Cannot tweet images when tweeting via the 'tweet' button in the sidebar
-- Image which has been selected in the previous tweet is automatically tweeted again even though no image is selected
+- Image which has been selected in the previous tweet is automatically tweeted again even though no image is selected(Done using multer)
 
 ## Contribute
 
@@ -53,15 +53,15 @@ $ mongod
 2. Start the server
 
 ```
-cd server
-nodemon server.js
+$ cd server
+$ nodemon server.js
 ```
 
 3. Start the client
 
 ```
-cd client
-npm start
+$ cd client
+$ npm start
 ```
 
 ## License
