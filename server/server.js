@@ -176,18 +176,19 @@ const upload = multer({
 app.post("/feed", upload.single("tweetImage"), (req, res) => {
   const info = JSON.parse(JSON.stringify(req.body));
   const finalInfo = JSON.parse(info.main);
+
+  console.log(req);
   newTweet = Tweet.create(
     {
       content: finalInfo.content,
       retweets: [],
-
       postedTweetTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
     },
     (err, newTweet) => {
       if (!err) {
         if (req.file) {
           newTweet.image = req.file.filename;
-        }
+        } else console.log("no image found");
         User.findOne({ username: finalInfo.postedBy.username }, (err, doc) => {
           if (!err) {
             newTweet.postedBy = doc._id;
@@ -195,6 +196,7 @@ app.post("/feed", upload.single("tweetImage"), (req, res) => {
               newTweet.save();
               doc.tweets.unshift(newTweet._id);
               doc.save();
+              return res.json({ image: req.file });
             } else
               return res.json({ status: "error", error: "An error occured" });
           } else
