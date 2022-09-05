@@ -2,7 +2,7 @@
 
 Twitter clone made using MERN Stack.
 
-![twitter](https://drive.google.com/file/d/1XeZOlbEdg1xDkJVkMdFtIUTeq-sCSilj/view?usp=sharing)
+![twitter-pic](twitter-pic.png)
 
 ## Features
 
