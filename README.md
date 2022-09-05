@@ -29,15 +29,16 @@ Twitter clone made using MERN Stack.
 - npm
 - mongodb
 
-1. Clone this repository
-2. Install server dependencies
+1. Fork this repository
+2. Clone this repository
+3. Install server dependencies
 
 ```
 $ cd server
 $ npm install
 ```
 
-3. Install client dependencies
+4. Install client dependencies
 
 ```
 $ cd client
