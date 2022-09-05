@@ -2,6 +2,8 @@
 
 Twitter clone made using MERN Stack.
 
+![twitter](https://drive.google.com/file/d/1XeZOlbEdg1xDkJVkMdFtIUTeq-sCSilj/view?usp=sharing)
+
 ## Features
 
 - Sign up/ Sign in via JWT Token
