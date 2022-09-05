@@ -177,7 +177,7 @@ app.post("/feed", upload.single("tweetImage"), (req, res) => {
   const info = JSON.parse(JSON.stringify(req.body));
   const finalInfo = JSON.parse(info.main);
 
-  console.log(req);
+  // console.log(req);
   newTweet = Tweet.create(
     {
       content: finalInfo.content,

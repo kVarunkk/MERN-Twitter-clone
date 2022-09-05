@@ -129,6 +129,10 @@ hr {
     padding: 20px;
 }
 
+.form-flex {
+    display: flex;
+}
+
 form {
     width: 100%;
     margin-bottom: 90px;
@@ -174,7 +178,7 @@ input:focus {
 
 
 .tweetImage {
-    width: 70%;
+    width: 85%;
     margin: 60px auto;
     border-radius: 16px;
 }

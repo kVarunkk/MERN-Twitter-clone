@@ -3,15 +3,30 @@ import { Link } from "react-router-dom";
 import { BsTwitter } from "react-icons/bs";
 import { BiHome } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
+import { AiFillCamera } from "react-icons/ai";
+import { GrLogout } from "react-icons/gr";
 import { useToast } from "@chakra-ui/toast";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import moment from "moment";
+import axios from "axios";
+
+import jwtDecode from "jwt-decode";
 
 function Sidebar() {
   const [activeUser, setActiveUser] = useState("");
   const [input, setInput] = useState("");
   const toast = useToast();
+  const [img, setImg] = useState();
+  const [isImageSelected, setIsImageSelected] = useState(false);
+
+  const onImageChange = (e) => {
+    const [file] = e.target.files;
+    setImg(URL.createObjectURL(file));
+    setIsImageSelected(true);
+  };
+
+  const checkInput = input || isImageSelected;
 
   const successToast = () => {
     toast({
@@ -42,6 +57,69 @@ function Sidebar() {
     setInput(e.target.value);
   };
 
+  const logout = (e) => {
+    localStorage.removeItem("token");
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const tweet = {
+  //     content: input,
+  //     postedBy: {
+  //       username: activeUser,
+  //     },
+  //     image: "",
+  //     likes: [],
+  //     retweets: [],
+  //     comments: [],
+  //     likeTweetBtn: "black",
+  //     postedTweetTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
+  //     tweetId: moment(),
+  //   };
+
+  //   let form = document.getElementById("form");
+  //   let formData = new FormData(form);
+  //   formData.append("main", JSON.stringify(tweet));
+  //   const action = e.target.action;
+
+  //   axios
+  //     .post(`${action}`, formData)
+  //     .then(setInput(""))
+  //     .then(successToast())
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const tweet = {
+  //     content: input,
+  //     postedBy: {
+  //       username: activeUser,
+  //     },
+  //     likes: [],
+  //     retweets: [],
+  //     comments: [],
+  //     likeTweetBtn: "black",
+  //     postedTweetTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
+  //     tweetId: moment(),
+  //   };
+
+  //   fetch("http://localhost:5000/feed", {
+  //     method: "POST",
+  //     headers: { "Content-type": "application/json" },
+  //     body: JSON.stringify(tweet),
+  //   })
+  //     .then(setInput(""))
+  //     .then(successToast())
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -50,6 +128,7 @@ function Sidebar() {
       postedBy: {
         username: activeUser,
       },
+      image: "",
       likes: [],
       retweets: [],
       comments: [],
@@ -58,11 +137,13 @@ function Sidebar() {
       tweetId: moment(),
     };
 
-    fetch("http://localhost:5000/feed", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(tweet),
-    })
+    let form = document.getElementById("form");
+    let formData = new FormData(form);
+    formData.append("main", JSON.stringify(tweet));
+    const action = e.target.action;
+
+    axios
+      .post(`${action}`, formData)
       .then(setInput(""))
       .then(successToast())
       .catch((error) => {
@@ -81,7 +162,7 @@ function Sidebar() {
           </div>
         </li>
         <li className="sidebar-menu-items">
-          <Link to="/">
+          <Link to="/feed">
             <BiHome />
             <div>Home</div>
           </Link>
@@ -90,6 +171,12 @@ function Sidebar() {
           <Link to={`/profile/${activeUser}`}>
             <CgProfile />
             <div>Profile</div>
+          </Link>
+        </li>
+        <li onClick={logout} className="sidebar-menu-items">
+          <Link to="/">
+            <GrLogout />
+            <div>Logout</div>
           </Link>
         </li>
         <li className="sidebar-menu-items tweet-list-item">
@@ -107,23 +194,70 @@ function Sidebar() {
                   close();
                 }}
                 method="post"
+                encType="multipart/form-data"
                 action="http://localhost:5000/feed"
-                style={{ marginBottom: "0" }}
+                className="tweet-form"
+                id="form"
               >
                 <input
-                  required
                   autoFocus
                   placeholder="What's happening?"
                   type="text"
                   value={input}
                   onChange={handleChange}
                 ></input>
-                <br></br>
-                <button className="tweetBtn" type="submit">
-                  {" "}
-                  Tweet
-                </button>
+                <div className="tweet-flex">
+                  <label style={{ border: "none" }} className="avatar-label">
+                    <AiFillCamera
+                      style={{
+                        color: "#1DA1F2",
+                        fontSize: "1.5rem",
+                      }}
+                    />
+                    <input
+                      className="avatar-input"
+                      id="avatarInputId"
+                      type="file"
+                      accept=".png, .jpg, .jpeg"
+                      name="tweetImage"
+                      onChange={onImageChange}
+                    />
+                  </label>
+                  <button
+                    className={checkInput ? "tweetBtn" : "disabled"}
+                    disabled={!checkInput}
+                    type="submit"
+                  >
+                    {" "}
+                    Tweet
+                  </button>
+                </div>
+                <img className="tweet-preview" src={img} alt="" />
               </form>
+
+              // <form
+              //   onSubmit={(e) => {
+              //     handleSubmit(e);
+              //     close();
+              //   }}
+              //   method="post"
+              //   action="http://localhost:5000/feed"
+              //   style={{ marginBottom: "0" }}
+              // >
+              //   <input
+              //     required
+              //     autoFocus
+              //     placeholder="What's happening?"
+              //     type="text"
+              //     value={input}
+              //     onChange={handleChange}
+              //   ></input>
+              //   <br></br>
+              //   <button className="tweetBtn" type="submit">
+              //     {" "}
+              //     Tweet
+              //   </button>
+              // </form>
             )}
           </Popup>
         </li>

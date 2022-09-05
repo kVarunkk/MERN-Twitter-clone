@@ -10,15 +10,19 @@ import "reactjs-popup/dist/index.css";
 
 function Feed() {
   const [input, setInput] = useState("");
+  // const [imageInput, setImageInput] = useState();
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeUser, setActiveUser] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
   const navigate = useNavigate();
   const [img, setImg] = useState();
   const [isImageSelected, setIsImageSelected] = useState(false);
 
   const onImageChange = (e) => {
     const [file] = e.target.files;
+    // console.log(file);
+    // setImageInput(file.name);
     setImg(URL.createObjectURL(file));
     setIsImageSelected(true);
   };
@@ -35,9 +39,8 @@ function Feed() {
     const data = await req.json();
     if (data.status === "ok") {
       setTweets(data.tweets);
-
       setActiveUser(data.activeUser.username);
-
+      setUserAvatar(data.activeUser.avatar);
       setLoading(false);
     } else {
       alert(data.error);
@@ -78,21 +81,27 @@ function Feed() {
       tweetId: moment(),
     };
 
+    console.log(activeUser);
     let form = document.getElementById("form");
     let formData = new FormData(form);
+
+    // formData.append("image", JSON.stringify(imageInput));
     formData.append("main", JSON.stringify(tweet));
     const action = e.target.action;
 
     axios
       .post(`${action}`, formData)
-
       .then(setInput(""))
+      // .then(console.log(formData.get("image")))
+      // .then(setImageInput(""))
       .then(
         setTweets((prevTweets) => {
           return [tweet, ...prevTweets];
         })
       )
-
+      // .then((formData = null))
+      .then(setImg(""))
+      .then(setIsImageSelected(false))
       .then(setLoading(true))
       .then(
         setTimeout(() => {
@@ -106,49 +115,58 @@ function Feed() {
 
   return (
     <div>
-      <form
-        onSubmit={handleSubmit}
-        method="post"
-        encType="multipart/form-data"
-        action="http://localhost:5000/feed"
-        className="tweet-form"
-        id="form"
-      >
-        <input
-          autoFocus
-          placeholder="What's happening?"
-          type="text"
-          value={input}
-          onChange={handleChange}
-        ></input>
-        <div className="tweet-flex">
-          <label style={{ border: "none" }} className="avatar-label">
-            <AiFillCamera
-              style={{
-                color: "#1DA1F2",
-                fontSize: "1.5rem",
-              }}
-            />
-            <input
-              className="avatar-input"
-              id="avatarInputId"
-              type="file"
-              accept=".png, .jpg, .jpeg"
-              name="tweetImage"
-              onChange={onImageChange}
-            />
-          </label>
-          <button
-            className={checkInput ? "tweetBtn" : "disabled"}
-            disabled={!checkInput}
-            type="submit"
-          >
-            {" "}
-            Tweet
-          </button>
-        </div>
-        <img className="tweet-preview" src={img} alt="" />
-      </form>
+      <div className="form-flex">
+        <img
+          className="tweet-avatar"
+          style={{ marginBottom: "0" }}
+          src={`http://localhost:5000/images/${userAvatar}`}
+        ></img>
+
+        <form
+          onSubmit={handleSubmit}
+          method="post"
+          encType="multipart/form-data"
+          action="http://localhost:5000/feed"
+          className="tweet-form"
+          id="form"
+        >
+          <input
+            autoFocus
+            placeholder="What's happening?"
+            type="text"
+            value={input}
+            onChange={handleChange}
+          ></input>
+          <div className="tweet-flex">
+            <label style={{ border: "none" }} className="avatar-label">
+              <AiFillCamera
+                style={{
+                  color: "#1DA1F2",
+                  fontSize: "1.5rem",
+                }}
+              />
+              <input
+                className="avatar-input"
+                id="avatarInputId"
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                name="tweetImage"
+                // value={imageInput}
+                onChange={onImageChange}
+              />
+            </label>
+            <button
+              className={checkInput ? "tweetBtn" : "disabled"}
+              disabled={!checkInput}
+              type="submit"
+            >
+              {" "}
+              Tweet
+            </button>
+          </div>
+          <img className="tweet-preview" src={img} alt="" />
+        </form>
+      </div>
 
       <div className="tweets">
         <ul className="tweet-list">
