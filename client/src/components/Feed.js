@@ -21,8 +21,6 @@ function Feed() {
 
   const onImageChange = (e) => {
     const [file] = e.target.files;
-    // console.log(file);
-    // setImageInput(file.name);
     setImg(URL.createObjectURL(file));
     setIsImageSelected(true);
   };
@@ -81,27 +79,24 @@ function Feed() {
       tweetId: moment(),
     };
 
-    console.log(activeUser);
     let form = document.getElementById("form");
     let formData = new FormData(form);
 
-    // formData.append("image", JSON.stringify(imageInput));
     formData.append("main", JSON.stringify(tweet));
+    console.log(formData);
     const action = e.target.action;
 
     axios
       .post(`${action}`, formData)
       .then(setInput(""))
-      // .then(console.log(formData.get("image")))
-      // .then(setImageInput(""))
+      .then(setImg(""))
+      .then(setIsImageSelected(false))
+      .then(console.log((e.target[1].value = "")))
       .then(
         setTweets((prevTweets) => {
           return [tweet, ...prevTweets];
         })
       )
-      // .then((formData = null))
-      .then(setImg(""))
-      .then(setIsImageSelected(false))
       .then(setLoading(true))
       .then(
         setTimeout(() => {
@@ -151,7 +146,6 @@ function Feed() {
                 type="file"
                 accept=".png, .jpg, .jpeg"
                 name="tweetImage"
-                // value={imageInput}
                 onChange={onImageChange}
               />
             </label>

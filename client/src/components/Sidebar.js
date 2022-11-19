@@ -61,65 +61,6 @@ function Sidebar() {
     localStorage.removeItem("token");
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const tweet = {
-  //     content: input,
-  //     postedBy: {
-  //       username: activeUser,
-  //     },
-  //     image: "",
-  //     likes: [],
-  //     retweets: [],
-  //     comments: [],
-  //     likeTweetBtn: "black",
-  //     postedTweetTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
-  //     tweetId: moment(),
-  //   };
-
-  //   let form = document.getElementById("form");
-  //   let formData = new FormData(form);
-  //   formData.append("main", JSON.stringify(tweet));
-  //   const action = e.target.action;
-
-  //   axios
-  //     .post(`${action}`, formData)
-  //     .then(setInput(""))
-  //     .then(successToast())
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const tweet = {
-  //     content: input,
-  //     postedBy: {
-  //       username: activeUser,
-  //     },
-  //     likes: [],
-  //     retweets: [],
-  //     comments: [],
-  //     likeTweetBtn: "black",
-  //     postedTweetTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
-  //     tweetId: moment(),
-  //   };
-
-  //   fetch("http://localhost:5000/feed", {
-  //     method: "POST",
-  //     headers: { "Content-type": "application/json" },
-  //     body: JSON.stringify(tweet),
-  //   })
-  //     .then(setInput(""))
-  //     .then(successToast())
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -137,14 +78,17 @@ function Sidebar() {
       tweetId: moment(),
     };
 
-    let form = document.getElementById("form");
+    let form = document.getElementById("form1");
     let formData = new FormData(form);
+
     formData.append("main", JSON.stringify(tweet));
     const action = e.target.action;
 
     axios
       .post(`${action}`, formData)
       .then(setInput(""))
+      .then(setImg(""))
+      .then(setIsImageSelected(false))
       .then(successToast())
       .catch((error) => {
         console.log(error);
@@ -197,7 +141,7 @@ function Sidebar() {
                 encType="multipart/form-data"
                 action="http://localhost:5000/feed"
                 className="tweet-form"
-                id="form"
+                id="form1"
               >
                 <input
                   autoFocus
@@ -234,30 +178,6 @@ function Sidebar() {
                 </div>
                 <img className="tweet-preview" src={img} alt="" />
               </form>
-
-              // <form
-              //   onSubmit={(e) => {
-              //     handleSubmit(e);
-              //     close();
-              //   }}
-              //   method="post"
-              //   action="http://localhost:5000/feed"
-              //   style={{ marginBottom: "0" }}
-              // >
-              //   <input
-              //     required
-              //     autoFocus
-              //     placeholder="What's happening?"
-              //     type="text"
-              //     value={input}
-              //     onChange={handleChange}
-              //   ></input>
-              //   <br></br>
-              //   <button className="tweetBtn" type="submit">
-              //     {" "}
-              //     Tweet
-              //   </button>
-              // </form>
             )}
           </Popup>
         </li>

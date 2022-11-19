@@ -19,8 +19,6 @@ Twitter clone made using MERN Stack.
 ## Bugs
 
 - App crashes on tweeting for the first time
-- Cannot tweet images when tweeting via the 'tweet' button in the sidebar
-- Image which has been selected in the previous tweet is automatically tweeted again even though no image is selected(Done using multer)
 
 ## Contribute
 
