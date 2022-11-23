@@ -72,6 +72,8 @@ app.post("/signup", async (req, res) => {
 app.get("/feed", async (req, res) => {
   const token = req.headers["x-access-token"];
 
+  const tweetsToSkip = req.query.t || 0;
+
   try {
     const decoded = jwt.verify(token, "newSecretKey");
     const username = decoded.username;
@@ -80,6 +82,8 @@ app.get("/feed", async (req, res) => {
       .populate("postedBy")
       .populate("comments")
       .sort({ createdAt: -1 })
+      .skip(tweetsToSkip)
+      .limit(20)
       .exec((err, docs) => {
         if (!err) {
           //to know if a person has liked tweet

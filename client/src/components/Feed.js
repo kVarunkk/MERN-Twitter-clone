@@ -18,6 +18,7 @@ function Feed() {
   const navigate = useNavigate();
   const [img, setImg] = useState();
   const [isImageSelected, setIsImageSelected] = useState(false);
+  const [tweetCount, setTweetCount] = useState("20");
 
   const onImageChange = (e) => {
     const [file] = e.target.files;
@@ -40,6 +41,28 @@ function Feed() {
       setActiveUser(data.activeUser.username);
       setUserAvatar(data.activeUser.avatar);
       setLoading(false);
+    } else {
+      alert(data.error);
+      navigate("/");
+    }
+  }
+
+  async function addTweets(e) {
+    e.preventDefault();
+    const req = await fetch(`http://localhost:5000/feed?t=${tweetCount}`, {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      },
+    });
+
+    const data = await req.json();
+    if (data.status === "ok") {
+      setTweets((prevTweets) => {
+        return [...prevTweets, ...data.tweets];
+      });
+      setTweetCount((prevValue) => {
+        return parseInt(prevValue) + 20;
+      });
     } else {
       alert(data.error);
       navigate("/");
@@ -188,6 +211,11 @@ function Feed() {
           )}
         </ul>
       </div>
+      <form className="showMore-form" onSubmit={addTweets}>
+        <button className="showMore" type="submit">
+          Show more tweets
+        </button>
+      </form>
     </div>
   );
 }

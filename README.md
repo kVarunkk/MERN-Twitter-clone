@@ -16,10 +16,6 @@ Twitter clone made using MERN Stack.
 - Edit tweets and comments
 - Delete tweets and comments
 
-## Bugs
-
-- App crashes on tweeting for the first time
-
 ## Contribute
 
 ### Prerequisites
