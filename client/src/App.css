@@ -184,7 +184,9 @@ input:focus {
 }
 
 
-.homeContainer-btn, .tweetBtn, .followBtn {
+.homeContainer-btn,
+.tweetBtn,
+.followBtn {
     font-size: 1.2rem !important;
     border-radius: 30px;
     padding: 5px 20px;
@@ -315,7 +317,8 @@ input:focus {
     font-size: 1.5rem;
 }
 
-.icons, .count {
+.icons,
+.count {
     display: flex;
     justify-content: space-around;
 }
@@ -332,7 +335,9 @@ input:focus {
     font-size: 85%;
 }
 
-.like-count, .retweet-count, .comment-count {
+.like-count,
+.retweet-count,
+.comment-count {
     text-align: center;
 }
 
@@ -505,6 +510,9 @@ input:focus {
 .popup-content {
     padding: 15px !important;
     border-radius: 10px;
+    max-height: 100vh;
+    overflow-y: auto;
+    margin: 30px auto !important;
 }
 
 .popup-arrow {
@@ -628,4 +636,123 @@ input:focus {
     /* width: 50px; */
     color: var(--blue);
     margin: 0 auto;
+}
+
+/* card */
+
+.search-form input {
+    border-bottom: 1px solid rgb(217, 217, 217);
+    border-radius: 0;
+    margin-bottom: 20px !important;
+}
+
+.card {
+    display: flex;
+    gap: 20px;
+    /* align-items: center; */
+    background-color: rgba(240, 248, 255, 0.458);
+    box-shadow: 0px 10px 25px rgba(191, 191, 191, 0.625);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-text-username {
+    font-size: 1.4rem;
+}
+
+.card-text-follow {
+    display: flex;
+    gap: 10px;
+}
+
+@media only screen and (max-device-width: 480px) {
+    .homeContainer {
+        width: 90%;
+    }
+
+    .googleSignIn {
+        width: 80%;
+    }
+
+    .homeContainer-input {
+        width: 80%;
+    }
+
+    .App {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: relative;
+        overflow-x: scroll;
+    }
+
+    .sidebar-menu {
+        display: flex;
+    }
+
+    .title a {
+        font-size: 1.5rem !important;
+    }
+
+    .sidebar-menu-items a {
+        font-size: 1.2rem;
+    }
+
+    .tweet-list-item {
+        margin-top: 0 !important;
+    }
+
+    .sidebar-menu-tweetBtn {
+        font-size: 1rem !important;
+
+    }
+
+    .HeaderAndFeed {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .flex-introduction {
+        font-size: 0.8rem !important;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .content {
+        font-size: 1.1rem !important;
+    }
+
+    .tweetImage {
+        margin: 20px auto;
+    }
+
+    .retweetedBy {
+        font-size: 1rem;
+    }
+
+    .avatar-form {
+        display: block;
+    }
+
+    .popup-content {
+        width: 85% !important;
+        left: 10px !important;
+    }
+
+    .card-text-username {
+        font-size: 1.2rem;
+    }
+
+    .card-text-followers {
+        font-size: 0.9rem;
+    }
+
 }

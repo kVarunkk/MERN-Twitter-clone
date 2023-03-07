@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/images", express.static("images"));
 app.use("/tweetImages", express.static("tweetImages"));
 
-mongoose.connect("mongodb://localhost:27017/mernDB", (err) => {
+mongoose.connect("mongodb://127.0.0.1/mernDB", (err) => {
   if (err) console.log(err);
   else console.log("mongdb is connected");
 });
@@ -500,6 +500,20 @@ app.route("/user/:user/follow/:userName").post((req, res) => {
       }
     }
   });
+});
+
+// search page
+
+app.get("/search/:user", (req, res) => {
+  // console.log(req.params.user);
+  User.find(
+    { username: { $regex: `${req.params.user}`, $options: "i" } },
+    function (err, docs) {
+      if (!err) {
+        return res.json({ status: "ok", users: docs });
+      } else return res.json({ status: "error", error: err });
+    }
+  );
 });
 
 app.listen("5000", () => {

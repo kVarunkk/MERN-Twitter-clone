@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { BsTwitter } from "react-icons/bs";
 import { BiHome } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
-import { AiFillCamera } from "react-icons/ai";
+import { AiFillCamera, AiOutlineSearch } from "react-icons/ai";
 import { GrLogout } from "react-icons/gr";
 import { useToast } from "@chakra-ui/toast";
 import Popup from "reactjs-popup";
@@ -115,6 +115,12 @@ function Sidebar() {
           <Link to={`/profile/${activeUser}`}>
             <CgProfile />
             <div>Profile</div>
+          </Link>
+        </li>
+        <li className="sidebar-menu-items">
+          <Link to={`/search`}>
+            <AiOutlineSearch />
+            <div>Search</div>
           </Link>
         </li>
         <li onClick={logout} className="sidebar-menu-items">
