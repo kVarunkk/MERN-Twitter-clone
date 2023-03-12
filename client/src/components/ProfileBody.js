@@ -81,14 +81,13 @@ function ProfileBody() {
   }, []);
 
   const handleSubmitAvatar = (e) => {
-    e.preventDefault();
-    let form = document.getElementById("form");
-    let formData = new FormData(form);
-    const action = e.target.action;
-
-    axios.post(`${action}`, formData).then((response) => {
-      response.data.status === "ok" && setAvatar(response.data.avatar);
-    });
+    axios
+      .post(`http://localhost:5000/avatar/${activeUser}`, {
+        avatar: `Avatar-${e.target.id}.png`,
+      })
+      .then((response) => {
+        response.data.status === "ok" && setAvatar(response.data.avatar);
+      });
   };
 
   return (
@@ -99,46 +98,151 @@ function ProfileBody() {
           src={`http://localhost:5000/images/${avatar}`}
         ></img>
         {isActiveUser && (
-          <form
-            className="avatar-form"
-            onSubmit={handleSubmitAvatar}
-            action={`http://localhost:5000/avatar/${activeUser}`}
-            encType="multipart/form-data"
-            id="form"
+          <Popup
+            position="center"
+            modal
+            trigger={<button className="tweetBtn">Choose avatar</button>}
           >
-            <label className="avatar-label">
-              <AiFillCamera />
-              <input
-                className="avatar-input"
-                id="avatarInputId"
-                type="file"
-                accept=".png, .jpg, .jpeg"
-                name="photo"
-                onChange={onImageChange}
-                required
-              />
-              Upload profile picture
-            </label>
-            <Popup
-              trigger={<img className="avatar-preview" src={img} alt="" />}
-              modal
-              position="center"
-            >
-              <div className="popup-avatar">
-                <h1>Preview</h1>
+            {(close) => (
+              <div className="choose-avatar-container">
                 <img
-                  style={{ width: "200px", margin: "20px auto" }}
-                  src={img}
-                  alt=""
-                />
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="1"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-1.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="2"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-2.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="3"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-3.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="4"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-4.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="5"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-5.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="6"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-6.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="7"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-7.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="8"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-8.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="9"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-9.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="10"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-10.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="11"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-11.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="12"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-12.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="13"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-13.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="14"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-14.png`}
+                ></img>
+                <img
+                  onClick={(e) => {
+                    close();
+                    handleSubmitAvatar(e);
+                  }}
+                  id="15"
+                  className="choose-profile-avatar"
+                  src={`http://localhost:5000/images/Avatar-15.png`}
+                ></img>
               </div>
-            </Popup>
-            {isImageSelected && (
-              <button className="tweetBtn avatarBtn" type="submit">
-                Confirm
-              </button>
             )}
-          </form>
+          </Popup>
         )}
       </div>
       <div className="userName">{userName}</div>

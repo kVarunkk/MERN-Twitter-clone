@@ -177,30 +177,29 @@ const upload = multer({
   fileFilter,
 });
 
-app.post("/feed", upload.single("tweetImage"), (req, res) => {
-  const info = JSON.parse(JSON.stringify(req.body));
-  const finalInfo = JSON.parse(info.main);
+app.post("/feed", (req, res) => {
+  const info = req.body;
+  const tweetInfo = JSON.parse(req.body.tweet);
 
-  // console.log(req.file);
   newTweet = Tweet.create(
     {
-      content: finalInfo.content,
+      content: tweetInfo.content,
       retweets: [],
       postedTweetTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
     },
     (err, newTweet) => {
       if (!err) {
-        if (req.file) {
-          newTweet.image = req.file.filename;
+        if (info.image) {
+          newTweet.image = info.image;
         } else console.log("no image found");
-        User.findOne({ username: finalInfo.postedBy.username }, (err, doc) => {
+        User.findOne({ username: tweetInfo.postedBy.username }, (err, doc) => {
           if (!err) {
             newTweet.postedBy = doc._id;
             if (newTweet.postedBy) {
               newTweet.save();
               doc.tweets.unshift(newTweet._id);
               doc.save();
-              return res.json({ image: req.file });
+              return res.json({ image: info.image });
             } else
               return res.json({ status: "error", error: "An error occured" });
           } else
@@ -213,7 +212,7 @@ app.post("/feed", upload.single("tweetImage"), (req, res) => {
 
 //compose comment
 app.post("/feed/comment/:tweetId", (req, res) => {
-  newComment = Comment.create(
+  Comment.create(
     {
       content: req.body.content,
       postedCommentTime: moment().format("MMMM Do YYYY, h:mm:ss a"),
@@ -240,7 +239,10 @@ app.post("/feed/comment/:tweetId", (req, res) => {
               }
             );
 
-            return res.json({ comments: doc.comments.length });
+            return res.json({
+              comments: doc.comments.length,
+              docs: doc.comments,
+            });
           } else
             return res.json({ status: "error", error: "An error occured" });
         });
@@ -415,13 +417,13 @@ const upload1 = multer({
   fileFilter,
 });
 
-app.post("/avatar/:userName", upload1.single("photo"), (req, res) => {
+app.post("/avatar/:userName", (req, res) => {
   User.findOne({ username: req.params.userName }, (err, user) => {
     if (!err) {
-      user.avatar = req.file.filename;
+      user.avatar = req.body.avatar;
       if (user.avatar) {
         user.save();
-        return res.json({ status: "ok", avatar: req.file.filename });
+        return res.json({ status: "ok", avatar: req.body.avatar });
       }
     } else return res.json({ status: "error", error: "Please upload again" });
   });

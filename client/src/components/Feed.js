@@ -16,17 +16,11 @@ function Feed() {
   const [activeUser, setActiveUser] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
   const navigate = useNavigate();
-  const [img, setImg] = useState();
+  const [img, setImg] = useState("");
   const [isImageSelected, setIsImageSelected] = useState(false);
   const [tweetCount, setTweetCount] = useState("20");
 
-  const onImageChange = (e) => {
-    const [file] = e.target.files;
-    setImg(URL.createObjectURL(file));
-    setIsImageSelected(true);
-  };
-
-  const checkInput = input || isImageSelected;
+  const checkInput = input || img;
 
   async function populateTweets() {
     const req = await fetch("http://localhost:5000/feed", {
@@ -102,15 +96,16 @@ function Feed() {
       tweetId: moment(),
     };
 
-    let form = document.getElementById("form");
-    let formData = new FormData(form);
+    // let form = document.getElementById("form");
+    // let formData = new FormData(form);
 
-    formData.append("main", JSON.stringify(tweet));
-    console.log(formData);
+    // formData.append("main", JSON.stringify(tweet));
+    // console.log(formData);
+    const data = { tweet: JSON.stringify(tweet), image: img };
     const action = e.target.action;
 
     axios
-      .post(`${action}`, formData)
+      .post(`${action}`, data)
       .then(setInput(""))
       .then(setImg(""))
       .then(setIsImageSelected(false))
@@ -156,22 +151,23 @@ function Feed() {
             onChange={handleChange}
           ></input>
           <div className="tweet-flex">
-            <label style={{ border: "none" }} className="avatar-label">
+            <div>
               <AiFillCamera
                 style={{
                   color: "#1DA1F2",
                   fontSize: "1.5rem",
                 }}
               />
-              <input
-                className="avatar-input"
-                id="avatarInputId"
-                type="file"
-                accept=".png, .jpg, .jpeg"
-                name="tweetImage"
-                onChange={onImageChange}
-              />
-            </label>
+            </div>
+
+            <input
+              className="image-input"
+              type="text"
+              placeholder="Enter an image url here"
+              value={img}
+              onChange={(e) => setImg(e.target.value)}
+            ></input>
+
             <button
               className={checkInput ? "tweetBtn" : "disabled"}
               disabled={!checkInput}

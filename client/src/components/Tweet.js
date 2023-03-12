@@ -91,16 +91,16 @@ function Tweet(props) {
       .then((data) => {
         setCommentCount(data.comments);
       })
-      .then(
-        setComments((prevValue) => {
-          return [comment, ...prevValue];
-        })
-      )
+      // .then(
+      //   setComments((prevValue) => {
+      //     return [comment, ...prevValue];
+      //   })
+      // )
       .then(setLoading(true))
       .then(
         setTimeout(() => {
           setLoading(false);
-        }, 300)
+        }, 500)
       )
       .catch((error) => {
         console.log(error);
@@ -318,10 +318,7 @@ function Tweet(props) {
 
             <div className="content">{props.body.content}</div>
             {props.body.image !== undefined && (
-              <img
-                className="tweetImage"
-                src={`http://localhost:5000/tweetImages/${props.body.image}`}
-              ></img>
+              <img className="tweetImage" src={`${props.body.image}`}></img>
             )}
             <div className="icons">
               <div style={{ color: btnColor }} className="icon">
